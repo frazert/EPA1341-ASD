@@ -1,0 +1,152 @@
+{UTF-8}
+amount of civil servants  = A FUNCTION OF( )
+	~	
+	~		|
+
+amount of permit requests  = A FUNCTION OF( )
+	~	
+	~		|
+
+amount of permits approved  = A FUNCTION OF( amount of permit requests,rate permits apporved\
+		)
+	~	
+	~		|
+
+Constructed houses  = A FUNCTION OF( construction finish rate)
+	~	
+	~		|
+
+construction finish rate  = A FUNCTION OF( under construction)
+	~	
+	~		|
+
+housing stock  = A FUNCTION OF( Constructed houses)
+	~	
+	~		|
+
+new construction rate  = A FUNCTION OF( permits for project approved,usage stock)
+	~	
+	~		|
+
+number of opjections  = A FUNCTION OF( )
+	~	
+	~		|
+
+permits for project approved  = A FUNCTION OF( amount of permits approved,processing time permits\
+		)
+	~	
+	~		|
+
+processing time permits  = A FUNCTION OF( amount of civil servants,amount of permit requests\
+		,number of opjections)
+	~	
+	~		|
+
+rate permits apporved  = A FUNCTION OF( number of opjections)
+	~	
+	~		|
+
+under construction  = A FUNCTION OF( new construction rate)
+	~	
+	~		|
+
+usage stock  = A FUNCTION OF( housing stock)
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,100,0
+10,1,construction finish rate,313,410,44,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,housing stock,602,208,50,10,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,3,usage stock,826,258,44,10,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,4,new construction rate,861,460,60,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,5,under construction,582,567,44,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,6,2,3,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(756,205)|
+1,7,3,4,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(903,370)|
+1,8,4,5,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(676,576)|
+1,9,5,1,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(381,583)|
+12,10,0,611,371,45,45,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
++
+12,11,0,727,394,40,20,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,12,Constructed houses,437,242,57,20,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+
+1,13,1,12,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(347,276)|
+1,14,12,2,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(538,183)|
+10,15,amount of permit requests,1430,258,48,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,16,amount of permits approved,1093,289,48,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,17,processing time permits,1268,493,58,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,18,17,29,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(1037,549)|
+10,19,amount of civil servants,1454,547,66,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,20,19,17,1,0,45,0,2,192,0,-1--1--1,|0||-1--1--1,1|(1334,567)|
+1,21,15,17,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(1329,345)|
+1,22,16,29,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(1014,408)|
+1,23,15,16,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(1220,245)|
+10,24,rate permits apporved,1012,134,56,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,25,24,16,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(1080,205)|
+10,26,number of opjections,1646,243,49,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,27,26,24,1,0,45,0,2,192,0,-1--1--1,|0||-1--1--1,1|(1281,37)|
+1,28,26,17,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(1351,423)|
+10,29,permits for project approved,1027,469,51,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,30,29,4,1,0,43,0,2,192,0,-1--1--1,|0||-1--1--1,1|(941,521)|
+///---\\\
+:L<%^E!@
+5:new construction rate
+19:100,0
+24:0
+25:0
+26:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+95:0
+96:0
+97:0
+77:0
+78:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
