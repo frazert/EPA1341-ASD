@@ -1,23 +1,38 @@
 {UTF-8}
+number of construction companies=A FUNCTION OF(number of construction companies,number of educated people\
+		,new houses under construction) ~~|
+number of construction companies=
+	~	
+	~		|
+
+number of educated people=A FUNCTION OF(number of educated people) ~~|
+number of educated people=
+	~	
+	~		|
+
+number of employees=A FUNCTION OF(number of employees,number of educated people) ~~|
+number of employees=
+	~	
+	~		|
+
+number of permits approved=A FUNCTION OF(number of permits approved,number of permit requests\
+		,rate permits approved) ~~|
+number of permits approved=
+	~	
+	~		|
+
+number of permit requests=A FUNCTION OF(number of permit requests,permit price) ~~|
+number of permit requests=
+	~	
+	~		|
+
+number of civil servants=A FUNCTION OF(number of civil servants) ~~|
+number of civil servants=
+	~	
+	~		|
+
 housing scarcity  = A FUNCTION OF( new constructed houses,housing demand,housing stock\
 		,occupied houses)
-	~	
-	~		|
-
-amount of construction companies  = A FUNCTION OF( amount of educated people,new houses under construction\
-		)
-	~	
-	~		|
-
-amount of educated people  = A FUNCTION OF( )
-	~	
-	~		|
-
-amount of employees  = A FUNCTION OF( amount of educated people)
-	~	
-	~		|
-
-amount of permit requests  = A FUNCTION OF( permit price)
 	~	
 	~		|
 
@@ -29,7 +44,7 @@ availability of materials  = A FUNCTION OF( )
 	~	
 	~		|
 
-construction finish rate  = A FUNCTION OF( amount of employees,availability of materials\
+construction finish rate  = A FUNCTION OF( number of employees,availability of materials\
 		,construction time,new houses under construction)
 	~	
 	~		|
@@ -42,7 +57,7 @@ housing demand  = A FUNCTION OF( )
 	~	
 	~		|
 
-new houses under construction  = A FUNCTION OF( amount of construction companies,new construction rate\
+new houses under construction  = A FUNCTION OF( number of construction companies,new construction rate\
 		)
 	~	
 	~		|
@@ -63,15 +78,6 @@ permit price  = A FUNCTION OF( )
 	~	
 	~		|
 
-amount of civil servants  = A FUNCTION OF( )
-	~	
-	~		|
-
-amount of permits approved  = A FUNCTION OF( amount of permit requests,rate permits approved\
-		)
-	~	
-	~		|
-
 housing stock  = A FUNCTION OF( new constructed houses)
 	~	
 	~		|
@@ -80,12 +86,12 @@ number of objections  = A FUNCTION OF( )
 	~	
 	~		|
 
-permits for project approved  = A FUNCTION OF( amount of permits approved,processing time permits\
+permits for project approved  = A FUNCTION OF( number of permits approved,processing time permits\
 		)
 	~	
 	~		|
 
-processing time permits  = A FUNCTION OF( amount of civil servants,amount of permit requests\
+processing time permits  = A FUNCTION OF( number of civil servants,number of permit requests\
 		,number of objections)
 	~	
 	~		|
@@ -125,11 +131,11 @@ TIME STEP  = 1
 V300  Do not put anything below this section - it will be ignored
 *View 1
 $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,75,0
-10,1,construction finish rate,369,428,44,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,2,housing stock,602,246,50,10,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,3,occupied houses,826,296,34,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,4,new construction rate,861,498,60,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,5,new houses under construction,582,605,66,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,1,construction finish rate,369,428,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,housing stock,602,246,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,3,occupied houses,826,296,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,4,new construction rate,861,498,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,5,new houses under construction,582,605,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 1,6,2,3,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(756,243)|
 1,7,3,4,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(871,403)|
 1,8,4,5,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(676,614)|
@@ -137,54 +143,54 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 12,10,0,611,409,45,45,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
 +
 12,11,0,727,432,2,10,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,12,new constructed houses,437,280,59,18,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
+10,12,new constructed houses,437,280,75,30,8,71,0,0,-1,0,0,0,0,0,0,0,0,0
 
 1,13,1,12,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(379,347)|
 1,14,12,2,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(518,227)|
-10,15,amount of permit requests,1255,424,48,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,16,amount of permits approved,1093,327,48,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,17,processing time permits,1188,567,58,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,15,number of permit requests,1255,424,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,16,number of permits approved,1093,327,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,17,processing time permits,1188,567,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 1,18,17,29,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(1025,549)|
-10,19,amount of civil servants,1324,707,66,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,19,number of civil servants,1324,707,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 1,20,19,17,1,0,45,0,2,192,0,-1--1--1,|||0-0-0,1|(1209,665)|
 1,21,15,17,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(1215,484)|
 1,22,16,29,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(1014,446)|
 1,23,15,16,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(1161,356)|
-10,24,rate permits approved,1109,218,44,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,24,rate permits approved,1109,218,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 1,25,24,16,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(1111,278)|
-10,26,number of objections,1452,551,38,18,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,26,number of objections,1452,551,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 1,27,26,24,1,0,45,0,2,192,0,-1--1--1,|||0-0-0,1|(1353,294)|
 1,28,26,17,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(1251,559)|
-10,29,permits for project approved,1027,507,51,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,29,permits for project approved,1027,507,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 1,30,29,4,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(941,559)|
-10,33,permit price,1280,319,44,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,34,33,15,1,0,45,0,2,192,0,-1--1--1,|||-1--1--1,1|(1289,381)|
-10,39,availability of materials,183,424,47,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,40,construction time,167,536,44,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,41,39,1,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(276,388)|
-1,42,40,1,1,0,45,0,2,192,0,-1--1--1,|||-1--1--1,1|(246,464)|
-10,48,amount of construction companies,600,775,44,27,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,49,amount of educated people,390,765,62,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-10,50,amount of employees,283,642,41,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,51,49,50,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(332,708)|
-1,53,49,48,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(498,813)|
-1,55,50,1,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(315,518)|
-1,56,48,5,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(640,690)|
-1,57,5,48,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(547,676)|
-12,58,0,588,687,20,20,5,7,0,0,-1,0,0,0,0,0,0,0,0,0
+10,31,permit price,1280,319,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,32,31,15,1,0,45,0,2,192,0,-1--1--1,|||0-0-0,1|(1289,381)|
+10,33,availability of materials,183,424,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,34,construction time,167,536,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,35,33,1,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(276,388)|
+1,36,34,1,1,0,45,0,2,192,0,-1--1--1,|||0-0-0,1|(246,464)|
+10,37,number of construction companies,600,775,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,38,number of educated people,390,765,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,39,number of employees,283,642,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,40,38,39,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(332,708)|
+1,41,38,37,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(498,813)|
+1,42,39,1,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(315,518)|
+1,43,37,5,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(640,690)|
+1,44,5,37,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(547,676)|
+12,45,0,588,687,20,20,5,7,0,0,-1,0,0,0,0,0,0,0,0,0
 +
-10,59,housing demand,763,132,60,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,60,59,3,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(833,216)|
-10,61,housing scarcity,502,102,58,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,62,59,61,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(622,77)|
-1,63,3,61,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(656,146)|
-1,64,2,61,1,0,45,0,2,192,0,-1--1--1,|||-1--1--1,1|(565,183)|
-10,65,housing price,273,132,49,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
-1,66,61,65,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(352,60)|
-1,67,12,61,1,0,0,0,0,128,0,-1--1--1,,1|(430,203)|
+10,46,housing demand,763,132,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,47,46,3,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(833,216)|
+10,48,housing scarcity,502,102,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,49,46,48,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(622,77)|
+1,50,3,48,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(656,146)|
+1,51,2,48,1,0,45,0,2,192,0,-1--1--1,|||0-0-0,1|(565,183)|
+10,52,housing price,273,132,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,53,48,52,1,0,43,0,2,192,0,-1--1--1,|||0-0-0,1|(352,60)|
+1,54,12,48,1,0,0,0,0,128,0,-1--1--1,,1|(430,203)|
 ///---\\\
 :L<%^E!@
-5:amount of construction companies
+5:availability of materials
 9:current
 19:75,0
 24:0
