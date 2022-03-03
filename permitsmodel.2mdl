@@ -1,0 +1,183 @@
+{UTF-8}
+approved permits=
+	permits in objection period*(1-objection rate)
+	~	permits/Month
+	~		|
+
+"average permits/house"=
+	1
+	~	permits/house
+	~		|
+
+denied permit rate=
+	0.4
+	~	
+	~	nog opzoeken
+	|
+
+denied permits=
+	permits in process*denied permit rate
+	~	
+	~		|
+
+housing demand=
+	5
+	~	houses/Month
+	~	hangt af van andere model
+	|
+
+objected permits=
+	permits in objection period*objection rate
+	~	permits/Month
+	~		|
+
+objection rate=
+	0.4
+	~	permits/permits
+	~	nog opzoeken
+	|
+
+permit requests=
+	(housing demand*"average permits/house")+(objected permits*resubmitted permit rate)+\
+		(resubmitted denied permit rate*denied permits)
+	~	permits/Month
+	~		|
+
+permits in objection period= INTEG (
+	processed permits-approved permits-objected permits,
+		0)
+	~	permits
+	~		|
+
+permits in process= INTEG (
+	permit requests-denied permits-processed permits,
+		0)
+	~	permits
+	~		|
+
+processed permits=
+	(1-denied permit rate)*permits in process
+	~	permits/Month
+	~		|
+
+resubmitted denied permit rate=
+	0.2
+	~	permits/permits
+	~	nog opzoeken of onderbouwen
+	|
+
+resubmitted permit rate=
+	0.7
+	~	permit/permit
+	~	nog opzoeken hoeveel precies
+	|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 120
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,100,0
+10,1,permits in objection period,801,299,47,27,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,permits in process,562,284,47,20,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,2,100,0,0,22,0,192,0,-1--1--1,,1|(640,288)|
+1,4,5,1,4,0,0,22,0,192,0,-1--1--1,,1|(719,288)|
+11,5,0,678,288,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,processed permits,678,326,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,7,48,369,284,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,7,100,0,0,22,0,192,0,-1--1--1,,1|(419,284)|
+1,9,10,2,4,0,0,22,0,192,0,-1--1--1,,1|(486,284)|
+11,10,0,451,284,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,permit requests,451,322,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,12,48,1084,291,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,13,15,1,100,0,0,22,0,192,0,-1--1--1,,1|(897,291)|
+1,14,15,12,4,0,0,22,0,192,0,-1--1--1,,1|(1009,291)|
+11,15,0,953,291,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,16,approved permits,953,329,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,17,48,801,147,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,18,20,1,100,0,0,22,0,192,0,-1--1--1,,1|(801,245)|
+1,19,20,17,4,0,0,22,0,192,0,-1--1--1,,1|(801,184)|
+11,20,0,801,213,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,21,objected permits,884,213,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,22,48,556,444,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,23,25,2,100,0,0,22,0,192,0,-1--1--1,,1|(556,332)|
+1,24,25,22,4,0,0,22,0,192,0,-1--1--1,,1|(556,401)|
+11,25,0,556,367,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,26,denied permits,639,367,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,27,20,10,1,0,0,0,0,192,0,-1--1--1,,1|(585,194)|
+10,28,housing demand,255,360,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,29,28,11,1,0,0,0,0,192,0,-1--1--1,,1|(325,350)|
+10,30,"average permits/house",309,435,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,31,30,11,1,0,0,0,0,192,0,-1--1--1,,1|(406,398)|
+10,32,resubmitted permit rate,395,167,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,33,32,10,1,0,0,0,0,192,0,-1--1--1,,1|(456,249)|
+10,34,denied permit rate,680,431,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,35,34,26,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,36,2,26,1,0,0,0,0,192,0,-1--1--1,,1|(612,335)|
+1,37,34,6,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,38,2,5,1,0,0,0,0,192,0,-1--1--1,,1|(638,240)|
+10,39,objection rate,970,169,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,40,39,21,1,0,0,0,0,192,0,-1--1--1,,1|(943,223)|
+1,41,25,11,1,0,0,0,0,192,0,-1--1--1,,1|(511,363)|
+10,42,resubmitted denied permit rate,467,473,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,43,42,11,1,0,0,0,0,192,0,-1--1--1,,1|(482,396)|
+1,44,1,16,1,0,0,0,0,192,0,-1--1--1,,1|(868,356)|
+1,45,39,15,1,0,0,0,0,192,0,-1--1--1,,1|(1008,241)|
+1,46,1,21,1,0,0,0,0,192,0,-1--1--1,,1|(848,261)|
+///---\\\
+:L<%^E!@
+1:current.vdfx
+4:Time
+5:denied permits
+9:current
+19:100,0
+24:0
+25:120
+26:120
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+98:1
+77:0
+78:0
+102:0
+93:1
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
