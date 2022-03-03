@@ -1,5 +1,9 @@
 {UTF-8}
-houses  = A FUNCTION OF( constructed houses,demolition of houses) ~~|
+verwijderen  = A FUNCTION OF( )
+	~	
+	~		|
+
+houses  = A FUNCTION OF( constructed houses,demolition of houses,-verwijderen) ~~|
 houses= INTEG (
 	constructed houses-demolition of houses,
 		)
@@ -186,9 +190,14 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 1,61,39,44,1,0,0,0,2,129,0,-1--1--1,|12||0-0-0,1|(1505,556)|
 10,62,objection delay time,1644,599,49,20,8,3,0,0,0,0,0,0,0,0,0,0,0,0
 1,63,62,44,1,0,0,0,0,128,0,-1--1--1,,1|(1656,553)|
+12,64,48,771,97,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,65,67,64,4,0,0,22,0,0,0,-1--1--1,,1|(771,139)|
+1,66,67,2,100,0,0,22,0,0,0,-1--1--1,,1|(771,210)|
+11,67,48,771,173,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,68,verwijderen,821,173,42,10,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
 ///---\\\
 :L<%^E!@
-5:Time
+5:FINAL TIME
 9:current
 19:80,0
 24:0
