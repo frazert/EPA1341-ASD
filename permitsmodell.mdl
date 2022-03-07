@@ -1,0 +1,206 @@
+{UTF-8}
+approved after objection permits  = A FUNCTION OF( )
+	~	
+	~		|
+
+approved permits  = A FUNCTION OF( )
+	~	
+	~		|
+
+"average permits/house"=
+	1
+	~	permits/house
+	~		|
+
+denied after objection  = A FUNCTION OF( )
+	~	
+	~		|
+
+denied permit rate=
+	0.4
+	~	
+	~	nog opzoeken
+	|
+
+denied permits=
+	permits in process*denied permit rate
+	~	
+	~		|
+
+housing demand=
+	5
+	~	houses/Month
+	~	hangt af van andere model
+	|
+
+objected permits  = A FUNCTION OF( )
+	~	
+	~		|
+
+permit requests  = A FUNCTION OF( "average permits/house",denied after objection,denied permits\
+		,housing demand,resubmitted denied permit rate,resubmitted permit rate) ~~|
+permit requests=
+	(housing demand*"average permits/house")+(objected permits*resubmitted permit rate)+\
+		(resubmitted denied permit rate*denied permits
+)
+	~	permits/Month
+	~		|
+
+permits in objection period  = A FUNCTION OF( -approved permits,-objected permits,processed permits\
+		) ~~|
+permits in objection period= INTEG (
+	processed permits-approved permits-objected permits,
+		0)
+	~	permits
+	~		|
+
+permits in process= INTEG (
+	permit requests-denied permits-processed permits,
+		0)
+	~	permits
+	~		|
+
+processed permits=
+	DELAY1((1-denied permit rate)*permits in process,processing time permits)
+	~	permits/Month
+	~		|
+
+processing time permits=
+	6
+	~	Month
+	~	moet nog veranderd worden
+	|
+
+reprocessed permits  = A FUNCTION OF( -approved after objection permits,-denied after objection\
+		,objected permits)
+	~	
+	~		|
+
+resubmitted denied permit rate=
+	0.2
+	~	permits/permits
+	~	nog opzoeken of onderbouwen
+	|
+
+resubmitted permit rate=
+	0.7
+	~	permit/permit
+	~	nog opzoeken hoeveel precies
+	|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 120
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,100,0
+10,1,permits in objection period,845,297,47,27,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,permits in process,562,284,47,20,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,3,5,2,100,0,0,22,0,192,0,-1--1--1,,1|(640,288)|
+1,4,5,1,4,0,0,22,0,192,0,-1--1--1,,1|(741,288)|
+11,5,0,678,288,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,processed permits,678,326,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,7,48,369,284,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,7,100,0,0,22,0,192,0,-1--1--1,,1|(419,284)|
+1,9,10,2,4,0,0,22,0,192,0,-1--1--1,,1|(486,284)|
+11,10,0,451,284,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,permit requests,451,322,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,12,48,556,444,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,13,15,2,100,0,0,22,0,192,0,-1--1--1,,1|(556,332)|
+1,14,15,12,4,0,0,22,0,192,0,-1--1--1,,1|(556,401)|
+11,15,0,556,367,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,16,denied permits,639,367,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,17,housing demand,255,360,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,18,17,11,1,0,0,0,0,192,0,-1--1--1,,1|(325,350)|
+10,19,"average permits/house",309,435,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,20,19,11,1,0,0,0,0,192,0,-1--1--1,,1|(406,398)|
+10,21,resubmitted permit rate,212,227,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,22,21,10,1,0,0,0,0,192,0,-1--1--1,,1|(410,236)|
+10,23,denied permit rate,680,431,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,24,23,16,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,25,2,16,1,0,0,0,0,192,0,-1--1--1,,1|(612,335)|
+1,26,23,6,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,27,2,5,1,0,0,0,2,193,0,-1--1--1,|||-1--1--1,1|(638,240)|
+1,28,15,11,1,0,0,0,0,192,0,-1--1--1,,1|(511,363)|
+10,29,resubmitted denied permit rate,467,473,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,30,29,11,1,0,0,0,0,192,0,-1--1--1,,1|(482,396)|
+10,31,processing time permits,615,142,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,32,31,5,1,0,0,0,0,192,0,-1--1--1,,1|(694,236)|
+12,33,48,1094,290,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,34,36,1,100,0,0,22,0,192,0,-1--1--1,,1|(935,290)|
+1,35,36,33,4,0,0,22,0,192,0,-1--1--1,,1|(1030,290)|
+11,36,0,985,290,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,37,approved permits,985,328,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,38,39,1,100,0,0,22,0,192,0,-1--1--1,,1|(845,237)|
+11,39,0,845,198,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,40,objected permits,928,198,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,41,reprocessed permits,843,88,60,20,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,42,39,41,4,0,0,22,0,192,0,-1--1--1,,1|(845,150)|
+12,43,48,1150,85,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,44,46,41,100,0,0,22,0,192,0,-1--1--1,,1|(960,85)|
+1,45,46,43,4,0,0,22,0,192,0,-1--1--1,,1|(1077,85)|
+11,46,0,1024,85,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,47,approved after objection permits,1024,123,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,48,48,843,-122,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,49,51,41,100,0,0,22,0,192,0,-1--1--1,,1|(843,24)|
+1,50,51,48,4,0,0,22,0,192,0,-1--1--1,,1|(843,-69)|
+11,51,0,843,-25,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,52,denied after objection,926,-25,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,53,51,10,1,0,0,0,0,192,0,-1--1--1,,1|(553,42)|
+///---\\\
+:L<%^E!@
+1:current.vdfx
+4:Time
+5:permits in objection period
+9:current
+19:100,0
+24:0
+25:120
+26:120
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+98:1
+77:0
+78:0
+102:0
+93:1
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
