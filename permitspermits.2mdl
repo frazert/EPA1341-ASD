@@ -20,10 +20,6 @@ average monthly denial rate=
 	~	permits/house
 	~		|
 
-demand civil servants  = A FUNCTION OF( )
-	~	
-	~		|
-
 denied after objection=
 	DELAY1( objected permits*(1-objection approval rate),reprocessing time)
 	~	permits/Month
@@ -285,12 +281,11 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 1,101,102,99,4,0,0,22,0,192,0,-1--1--1,,1|(1463,835)|
 11,102,0,1463,795,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
 10,103,resigned civil servants,1546,795,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,104,demand civil servants,1259,513,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 ///---\\\
 :L<%^E!@
 1:current.vdfx
 4:Time
-5:demand civil servants
+5:resigned civil servants
 9:current
 19:74,0
 24:0
