@@ -1,0 +1,302 @@
+{UTF-8}
+available houses=
+	houses*percentage available houses
+	~	
+	~		|
+
+households wihtout houses=
+	housing demand*percentage households without house
+	~	
+	~		|
+
+demand to supply ratio=
+	households wihtout houses/available houses
+	~	Dmnl
+	~		|
+
+percentage available houses=
+	4.2
+	~	Dmnl
+	~		|
+
+housing demand= WITH LOOKUP (
+	year,
+		([(0,0)-(10,10)],(0,670250),(1,676917),(2,681417),(3,685667),(4,689750),(5,693667),\
+		(6,697417),(7,700917),(8,704250),(9,707250),(10,710083),(11,712667),(12,715000),(13\
+		,717000),(14,718917),(15,720500),(16,721833),(17,723000),(18,724000),(19,724833),(20\
+		,725667),(21,726333),(22,726917),(23,727500),(24,728083),(25,728667),(26,729333),(27\
+		,730000),(28,730667),(29,731333) ))
+	~	houses
+	~	https://www.cbs.nl/nl-nl/longread/statistische-trends/2021/huishoudensprogn\
+		ose-2021-2070-groei-aantal-huishoudens-houdt-aan?onepage=true#c-5--Verschil\
+		len-met-de-vorige-prognose-en-onzekerheid\!year
+	|
+
+year=
+	INTEGER( Time/13 )
+	~	
+	~	0 = 2021
+	|
+
+multiplier= WITH LOOKUP (
+	demand to supply ratio,
+		([(0,0)-(3,3)],(0,0.2),(0.5,0.3),(1,1),(1.5,1.7),(2,2)))
+	~	Dmnl
+	~	Dit komt uit NewTowns
+	|
+
+new houses under construction=
+	construction rate*houses*multiplier
+	~	houses/Month
+	~		|
+
+percentage households without house=
+	0.06
+	~	
+	~		|
+
+birth rate=
+	0.0008
+	~	persons/persons/Month
+	~		|
+
+births=
+	birth rate*population
+	~	persons/Month
+	~		|
+
+emigration rate=
+	0.00067
+	~	persons/persons/Month
+	~		|
+
+household size=
+	2.17
+	~	persons/houses
+	~	zelfde bron ann, even kijken andere sites
+	|
+
+construction rate=
+	0.01
+	~	houses/houses/Month
+	~	Zelf zoeken
+	|
+
+death rate=
+	0.00082
+	~	persons/persons/Month
+	~		|
+
+deaths=
+	death rate*population
+	~	persons/Month
+	~		|
+
+demolition of houses=
+	demolition rate*houses
+	~	houses/Month
+	~		|
+
+population= INTEG (
+	births+immigration-deaths-emigration,
+		1.74754e+07)
+	~	persons
+	~	https://www.cbs.nl/nl-nl/cijfers/detail/83474NED
+	|
+
+emigration=
+	emigration rate*population
+	~	persons/Month
+	~		|
+
+immigration=
+	immigration rate*population
+	~	persons/Month
+	~		|
+
+immigration rate=
+	0.0012
+	~	persons/persons/Month
+	~		|
+
+houses= INTEG (
+	constructed houses-demolition of houses,
+		664285)
+	~	houses
+	~	https://www.rijksoverheid.nl/binaries/rijksoverheid/documenten/rapporten/2021/07/01/r\
+		apport-staat-van-de-woningmarkt-2021/Staat+van+de+Woningmarkt+2021.pdf
+		 pagina 28
+	|
+
+constructed houses=
+	DELAY3(new houses under construction, construction delay time )
+	~	houses/Month
+	~		|
+
+construction delay time=
+	24
+	~	Month
+	~		|
+
+demolition rate=
+	0.0015
+	~	houses/houses/Month
+	~	Zelf opzoeken
+	|
+
+houses under construction= INTEG (
+	new houses under construction-constructed houses,
+		0)
+	~	houses
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,96,0
+10,1,houses under construction,513,212,63,20,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,houses,772,210,49,28,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,3,48,281,211,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,4,6,1,4,0,0,22,0,0,0,-1--1--1,,1|(417,211)|
+1,5,6,3,100,0,0,22,0,0,0,-1--1--1,,1|(339,211)|
+11,6,48,379,211,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,7,new houses under construction,379,246,57,27,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,2,4,0,0,22,0,0,0,-1--1--1,,1|(684,212)|
+1,9,10,1,100,0,0,22,0,0,0,-1--1--1,,1|(605,212)|
+11,10,200,640,212,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,constructed houses,640,240,43,18,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,12,48,989,214,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,13,15,12,4,0,0,22,0,0,0,-1--1--1,,1|(934,214)|
+1,14,15,2,100,0,0,22,0,0,0,-1--1--1,,1|(857,214)|
+11,15,48,899,214,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,16,demolition of houses,899,242,47,18,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,17,demolition rate,925,98,49,20,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,18,17,15,1,0,0,0,0,128,0,-1--1--1,,1|(907,150)|
+10,19,construction rate,222,370,57,20,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,20,19,7,1,0,0,0,0,128,0,-1--1--1,,1|(244,318)|
+10,21,construction delay time,567,342,57,20,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,22,21,11,1,0,0,0,0,128,0,-1--1--1,,1|(593,298)|
+1,23,6,10,1,0,0,0,2,129,0,-1--1--1,|12||0-0-0,1|(532,134)|
+1,24,2,7,1,0,0,0,0,192,0,-1--1--1,,1|(422,98)|
+1,25,2,16,1,0,0,0,0,192,0,-1--1--1,,1|(833,272)|
+10,26,demand to supply ratio,535,480,54,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,27,housing demand,573,690,40,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,28,household size,1945,458,50,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,29,population,1750,535,49,13,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,30,48,1601,533,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,31,33,30,100,0,0,22,0,192,0,-1--1--1,,1|(1641,533)|
+1,32,33,29,4,0,0,22,0,192,0,-1--1--1,,1|(1685,533)|
+11,33,48,1663,533,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,34,births,1663,551,21,10,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,35,48,1956,535,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,36,38,29,100,0,0,22,0,192,0,-1--1--1,,1|(1829,535)|
+1,37,38,35,4,0,0,22,0,192,0,-1--1--1,,1|(1901,535)|
+11,38,48,1865,535,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,39,deaths,1865,553,26,10,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,40,48,1755,407,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,41,43,40,100,0,0,22,0,192,0,-1--1--1,,1|(1755,441)|
+1,42,43,29,4,0,0,22,0,192,0,-1--1--1,,1|(1755,497)|
+11,43,48,1755,467,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,44,immigration,1806,467,43,10,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,45,48,1754,675,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,46,48,29,100,0,0,22,0,192,0,-1--1--1,,1|(1754,581)|
+1,47,48,45,4,0,0,22,0,192,0,-1--1--1,,1|(1754,643)|
+11,48,48,1754,621,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,49,emigration,1801,621,39,10,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,50,birth rate,1555,434,42,13,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,51,emigration rate,1897,710,50,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,52,death rate,1997,621,48,13,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,53,immigration rate,1899,375,54,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,54,50,34,1,0,0,0,0,192,0,-1--1--1,,1|(1608,469)|
+1,55,53,44,1,0,0,0,0,192,0,-1--1--1,,1|(1850,419)|
+1,56,52,39,1,0,0,0,0,192,0,-1--1--1,,1|(1921,617)|
+1,57,51,49,1,0,0,0,0,192,0,-1--1--1,,1|(1826,683)|
+1,58,29,34,1,0,0,0,0,192,0,-1--1--1,,1|(1725,496)|
+1,59,29,49,0,0,0,0,0,192,0,-1--1--1,,1|(1772,573)|
+1,60,29,44,1,0,0,0,0,192,0,-1--1--1,,1|(1816,501)|
+1,61,29,49,0,0,0,0,0,192,0,-1--1--1,,1|(1772,573)|
+1,62,29,39,1,0,0,0,0,192,0,-1--1--1,,1|(1821,563)|
+10,63,Time,785,590,27,13,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,64,INITIAL TIME,826,673,45,20,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|0||128-128-128,0,0,0,0,0,0
+1,65,64,63,0,0,0,0,0,0,1,-1--1--1,,1|(807,634)|
+10,66,year,698,616,24,13,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,67,63,66,0,0,0,0,0,192,0,-1--1--1,,1|(746,601)|
+1,68,66,27,1,0,0,0,0,192,0,-1--1--1,,1|(644,680)|
+10,69,multiplier,397,385,43,13,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,70,26,69,1,0,0,0,0,192,0,-1--1--1,,1|(425,461)|
+1,71,69,7,1,0,0,0,0,192,0,-1--1--1,,1|(370,318)|
+10,72,available houses,697,419,42,20,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,73,households wihtout houses,416,603,55,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,74,2,72,1,0,0,0,0,192,0,-1--1--1,,1|(739,351)|
+1,75,27,73,1,0,0,0,0,192,0,-1--1--1,,1|(428,698)|
+1,76,73,26,1,0,0,0,0,192,0,-1--1--1,,1|(446,546)|
+1,77,72,26,1,0,0,0,0,192,0,-1--1--1,,1|(637,472)|
+10,78,percentage available houses,849,475,54,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,79,78,72,1,0,0,0,0,192,0,-1--1--1,,1|(719,475)|
+10,80,percentage households without house,224,522,63,27,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,81,80,73,1,0,0,0,0,192,0,-1--1--1,,1|(259,608)|
+///---\\\
+:L<%^E!@
+1:C:\Users\robyn\OneDrive\Documenten\delft\EPA\Year 2\Q3\Advanced system dynamics\current.vdfx
+1:current.vdfx
+1:C:\Users\robyn\OneDrive\Documenten\GitHub\EPA1341-ASD\Oude modellen\current.vdfx
+4:Time
+5:available houses
+9:current
+19:96,0
+24:0
+25:100
+26:100
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+95:0
+96:0
+97:0
+77:0
+78:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
