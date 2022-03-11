@@ -64,7 +64,7 @@ desired workload per civil servant=
 employed civil servants= INTEG (
 	New civil servant workers-fired civil servants-resigned civil servants-retired civil servants\
 		,
-		0)
+		1000)
 	~	servants
 	~		|
 
@@ -400,7 +400,7 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 :L<%^E!@
 1:current.vdfx
 4:Time
-5:Rolling average demand
+5:permits in process
 9:current
 19:77,0
 24:0
