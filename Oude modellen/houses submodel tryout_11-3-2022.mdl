@@ -1,0 +1,247 @@
+{UTF-8}
+available houses=
+	houses*percentage available houses
+	~	houses
+	~		|
+
+houses shortage=
+	housing demand-available houses
+	~	houses
+	~		|
+
+growth of households=
+	growth of household per month
+	~	households/Month
+	~		|
+
+housing demand=
+	(households*percentage housing demand)*houses per household
+	~	houses
+	~		|
+
+multiplier= WITH LOOKUP (
+	"ratio demand/supply houses",
+		([(0,0)-(3,3)],(0,0.2),(0.5,0.3),(1,1),(1.5,1.7),(2,2) ))
+	~	Dmnl
+	~		|
+
+dummy year=
+	1
+	~	1/Month
+	~		|
+
+growth of household per month= WITH LOOKUP (
+	year,
+		([(0,0)-(10,10)],(0,6667),(1,4500),(2,4250),(3,4083),(4,3917),(5,3750),(6,3500),(7,\
+		3333),(8,3000),(9,2833),(10,2583),(11,2333),(12,2000),(13,1917),(14,1583),(15,1333)\
+		,(16,1167),(17,1000),(18,833),(19,833),(20,667),(21,583),(22,583),(23,583),(24,583)\
+		,(25,667),(26,667),(27,667),(28,667),(29,667) ))
+	~	households/Month
+	~		|
+
+percentage housing demand=
+	0.047
+	~	Dmnl
+	~		|
+
+households= INTEG (
+	growth of households,
+		8.043e+06)
+	~	households
+	~	https://www.cbs.nl/nl-nl/longread/statistische-trends/2021/huishoudensprogn\
+		ose-2021-2070-groei-aantal-huishoudens-houdt-aan?onepage=true#c-5--Verschil\
+		len-met-de-vorige-prognose-en-onzekerheid\!year
+	|
+
+year=
+	INTEGER(Time/13)*dummy year
+	~	1
+	~		|
+
+houses per household=
+	1
+	~	houses/households
+	~		|
+
+percentage available houses=
+	0.0124
+	~	Dmnl
+	~		|
+
+"ratio demand/supply houses"=
+	housing demand/available houses
+	~	1
+	~		|
+
+new houses under construction  = A FUNCTION OF( houses,multiplier) ~~|
+new houses under construction=
+	prognose woningvoorraad*houses*multiplier
+	~	houses/Month
+	~		|
+
+demolition of houses=
+	demolition rate*houses
+	~	houses/Month
+	~		|
+
+houses= INTEG (
+	constructed houses-demolition of houses,
+		664285)
+	~	houses
+	~	https://www.rijksoverheid.nl/binaries/rijksoverheid/documenten/rapporten/2021/07/01/r\
+		apport-staat-van-de-woningmarkt-2021/Staat+van+de+Woningmarkt+2021.pdf
+		 pagina 28
+	|
+
+constructed houses=
+	DELAY3(new houses under construction, construction delay time )
+	~	houses/Month
+	~		|
+
+construction delay time=
+	24
+	~	Month
+	~		|
+
+demolition rate=
+	0.0015
+	~	houses/houses/Month
+	~	Zelf opzoeken
+	|
+
+houses under construction= INTEG (
+	new houses under construction-constructed houses,
+		0)
+	~	houses
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 350
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,78,0
+10,1,houses under construction,738,153,63,20,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,houses,997,151,49,28,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,3,48,506,152,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,4,6,1,4,0,0,22,0,0,0,-1--1--1,,1|(642,152)|
+1,5,6,3,100,0,0,22,0,0,0,-1--1--1,,1|(564,152)|
+11,6,0,604,152,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,7,new houses under construction,604,190,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,2,4,0,0,22,0,0,0,-1--1--1,,1|(909,153)|
+1,9,10,1,100,0,0,22,0,0,0,-1--1--1,,1|(830,153)|
+11,10,0,865,153,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,constructed houses,865,191,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,12,48,1214,155,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,13,15,12,4,0,0,22,0,0,0,-1--1--1,,1|(1159,155)|
+1,14,15,2,100,0,0,22,0,0,0,-1--1--1,,1|(1082,155)|
+11,15,0,1124,155,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,16,demolition of houses,1124,193,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,17,demolition rate,1150,39,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,18,17,15,1,0,0,0,0,128,0,-1--1--1,,1|(1132,91)|
+10,19,construction delay time,792,283,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,20,19,11,1,0,0,0,0,128,0,-1--1--1,,1|(818,239)|
+1,21,6,10,1,0,0,0,2,129,0,-1--1--1,|||0-0-0,1|(757,75)|
+1,22,2,7,1,0,0,0,0,192,0,-1--1--1,,1|(647,39)|
+1,23,2,16,1,0,0,0,0,192,0,-1--1--1,,1|(1058,213)|
+10,24,INITIAL TIME,651,695,75,30,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,25,households,750,663,55,20,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,26,48,499,659,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,27,29,26,100,0,0,22,0,192,0,-1--1--1,,1|(560,659)|
+1,28,29,25,4,0,0,22,0,192,0,-1--1--1,,1|(651,659)|
+11,29,0,602,659,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,30,growth of households,602,697,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,31,INITIAL TIME,874,675,75,30,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,32,year,474,835,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,33,Time,482,914,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,34,INITIAL TIME,434,989,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,35,34,33,0,0,0,0,0,0,1,-1--1--1,,1|(0,0)|
+1,36,33,32,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,37,growth of household per month,588,783,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,38,32,37,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,39,dummy year,312,800,75,30,8,3,0,16,-1,0,0,0,0-0-0,0-0-0,||U|0-0-0,0,0,0,0,0,0
+1,40,39,32,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,41,37,30,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,42,multiplier,616,320,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,43,42,7,0,0,0,0,0,64,0,-1--1--1,,1|(0,0)|
+10,44,available houses,1115,371,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,45,2,44,1,0,0,0,0,192,0,-1--1--1,,1|(1016,264)|
+10,46,percentage available houses,1283,268,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,47,46,44,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,48,percentage housing demand,858,772,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,49,housing demand,903,640,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,50,25,49,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,51,48,49,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,52,houses shortage,1292,519,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,53,44,52,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,54,49,52,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,55,houses per household,1061,652,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,56,55,49,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,57,"ratio demand/supply houses",751,459,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,58,49,57,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,59,44,57,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,60,57,42,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+///---\\\
+:L<%^E!@
+1:housesnieuw11-3.vdfx
+1:current.vdfx
+4:Time
+5:houses shortage
+9:housesnieuw11-3
+19:78,0
+24:0
+25:350
+26:350
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
