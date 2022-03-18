@@ -30,11 +30,11 @@ average permits per house  = 0.05
 	~		|
 
 average resignation level  = 0.04
-	~	servant/Month
+	~	1/Month
 	~		|
 
 average retire rate  = 0.01
-	~	servants/Month
+	~	1/Month
 	~		|
 
 backlog permits  = 
@@ -112,6 +112,12 @@ dummy year  = 1
 	~	1/Month
 	~		|
 
+efficiency  = 
+        0.2
+             * ratio workload to desired workload 
+	~	Dmnl
+	~		|
+
 employed civil servants  = 
         INTEG( New civil servant workers 
                   - fired civil servants 
@@ -126,7 +132,7 @@ Evaluation time  = 6
 	~		|
 
 fire rate  = 0.1
-	~	
+	~	1/Month
 	~		|
 
 fired civil servants  = 
@@ -292,17 +298,13 @@ processed permits  =
 	~	permit/Month
 	~		|
 
-processing time permits  = A FUNCTION OF( "ratio workload *processing time") ~~|
-processing time permits  = 1.5
+processing time permits  = 
+        1.5
+             * efficiency 
 	~	Month
 	~	https://www.stibbe.com/en/news/2019/october/omgevingsvergunning--beslisterm\
 		ijn-inwerkingtreding-en-onherroepelijkheid-faq
 	|
-
-"ratio workload *processing time"  = A FUNCTION OF( ratio workload to desired workload\
-		)
-	~	
-	~		|
 
 ratio workload to desired workload  = 
         backlog permits 
@@ -570,7 +572,7 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 11,137,0,2762,1068,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
 10,138,resigned civil servants,2845,1068,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
 10,139,demand civil servants,2316,1115,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
-10,140,backlog permits,2155,993,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,140,backlog permits,2155,993,75,30,8,3,0,16,0,0,0,0,0-0-0,0-0-0,||U|0-0-0,0,0,0,0,0,0
 1,141,123,140,1,0,0,0,0,128,0,-1--1--1,,1|(2374,898)|
 10,142,desired workload per civil servant,1953,1304,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 10,143,ratio workload to desired workload,2149,1224,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
@@ -630,7 +632,7 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 10,197,fire rate,3068,904,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
 1,198,197,152,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
 10,199,reprocessed permits,3155,446,75,30,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
-1,200,54,140,1,0,0,0,0,192,0,-1--1--1,,1|(1642,748)|
+1,200,54,140,1,0,0,0,0,192,0,-1--1--1,,1|(1641,830)|
 10,201,reprocessed permits,2223,1084,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
 1,202,201,140,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
 11,203,0,1955,112,6,8,2,3,0,0,1,0,0,0,0,0,0,0,0,0
@@ -642,14 +644,14 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 1,209,122,93,1,0,0,0,0,192,0,-1--1--1,,1|(2025,-64)|
 1,210,83,208,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
 1,211,122,208,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
-10,212,"ratio workload *processing time",2235,752,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
-1,213,143,212,1,0,0,0,0,192,0,-1--1--1,,1|(2033,931)|
-1,214,212,73,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,212,efficiency,2168,758,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,213,212,73,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,214,143,212,1,0,0,0,0,192,0,-1--1--1,,1|(2009,928)|
 ///---\\\
 :L<%^E!@
 1:hoi.vdfx
 4:Time
-5:desired workload per civil servant
+5:total approved permits
 9:hoi
 19:63,0
 24:0
