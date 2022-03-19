@@ -1,0 +1,727 @@
+{UTF-8}
+approved after objection  = 
+        ( objection approval rate 
+             * reprocessed permits ) 
+             / reprocessing time 
+	~	permit/Month
+	~		|
+
+approved permits  = 
+        ( ( 1
+             - objection rate ) 
+             * permits in objection period ) 
+             / objection processing time 
+	~	permit/Month
+	~		|
+
+available houses  = 
+        houses 
+             * percentage available houses 
+	~	house
+	~		|
+
+average employment level  = 
+        WITH LOOKUP( satisfaction civil servants , 
+            ([(0,0)-(10,0.1)],(0,0),(1,0),(1.30288,0.00297419),(1.53823,0.00905581),(1.75513,0.0229567)\
+		,(1.84281,0.0330927),(1.91665,0.0414911),(1.93973,0.0478623),(2,0.05),(100,0.06) )
+            )
+	~	servant/Month
+	~	\!satisfaction civil servants
+	|
+
+average monthly denial rate  = 0.2
+	~	Dmnl
+	~	nog opzoeken
+	|
+
+average permits per house  = 2
+	~	permit/house
+	~		|
+
+average processing time permits  = 2
+	~	Month
+	~	https://www.stibbe.com/en/news/2019/october/omgevingsvergunning--beslisterm\
+		ijn-inwerkingtreding-en-onherroepelijkheid-faq
+	|
+
+average resignation level  = 
+        WITH LOOKUP( satisfaction civil servants , 
+            ([(0,0)-(10,10)],(0,0.05),(0.0278893,0.0271103),(0.0402122,0.0140183),(0.0793201,0.00613636)\
+		,(0.157759,0.00349233),(0.271665,0.00243783),(0.493482,0.00127234),(0.703309,0.000828339)\
+		,(0.865175,0.000384341),(1,0),(2,0),(100,0) )
+            )
+	~	1/Month
+	~	\!satisfaction civil servants
+	|
+
+average retire rate  = 0.0004
+	~	1/Month
+	~		|
+
+backlog permits  = 
+        ( permits in process 
+             + reprocessed permits ) 
+             / employed civil servants 
+	~	permit/servant
+	~		|
+
+constructed houses  = 
+        houses under construction 
+             / construction delay time 
+	~	house/Month
+	~		|
+
+construction delay time  = 12
+	~	Month
+	~	https://www.eigenhuis.nl/huis-kopen/nieuwbouw/bouwperiode/fases-bouwproces#\
+		/
+	|
+
+demand civil servants  = 
+        ratio workload to desired workload 
+             * employed civil servants 
+	~	servant
+	~		|
+
+demolition of houses  = 
+        demolition rate 
+             * houses 
+	~	house/Month
+	~		|
+
+demolition rate  = 0.00013
+	~	house/house/Month
+	~	https://opendata.cbs.nl/statline/#/CBS/nl/dataset/81955NED/table?fromstatwe\
+		b
+	|
+
+denied after objection  = 
+        ( reprocessed permits 
+             * ( 1
+                  - objection approval rate ) 
+             * ( 1
+                  - resubmitted objected permit rate ) ) 
+             / reprocessing time 
+	~	permit/Month
+	~		|
+
+denied forever  = 
+        denied total 
+             * resubmitted denied permit rate 
+	~	permit/Month
+	~		|
+
+denied permits  = 
+        ( permits in process 
+             * average monthly denial rate ) 
+             / processing time permits 
+	~	permit/Month
+	~		|
+
+denied total  = 
+        INTEG( denied permits 
+                  - denied forever 
+                  - resubmitted , 
+             0) 
+	~	permit
+	~		|
+
+desired new civil servants  = 
+        MAX ( rolling average demand 
+                  - employed civil servants , 
+             0) 
+	~	servant
+	~		|
+
+desired time to finish construction  = 24
+	~	Month
+	~		|
+
+desired time to solve employment  = 3
+	~	Month
+	~		|
+
+desired workload per civil servant  = 4
+	~	permit/servant
+	~		|
+
+dummy year  = 1
+	~	1/Month
+	~		|
+
+efficiency  = 
+        WITH LOOKUP( ratio workload to desired workload , 
+            ([(0,0)-(10,2)],(0.00294985,0.0532959),(0.058997,0.27209),(0.165192,0.56662)\
+		,(0.374631,0.782609),(0.622419,0.908836),(0.8,0.999),(1,1),(1.19764,1.04348),(1.39528,1.1669)\
+		,(1.50442,1.25105),(1.58997,1.3324),(1.74669,1.45582),(1.86422,1.53788),(1.94343,1.62121)\
+		,(2.38477,1.71261),(3,1.75),(4,1.75),(10,1.75) )
+            )
+	~	Dmnl
+	~	\!ratio workload to desired workload
+	|
+
+employed civil servants  = 
+        INTEG( New civil servant workers 
+                  - fired civil servants 
+                  - resigned civil servants 
+                  - retired civil servants , 
+             6200) 
+	~	servant
+	~	https://opendata.cbs.nl/statline/#/CBS/nl/dataset/82808NED/table?dl=6494C \
+		10% van het totaal aantal gemeentelijke ambtenaren
+	|
+
+evaluation time  = 6
+	~	Month
+	~		|
+
+fire rate  = 0.0001
+	~	1/Month
+	~		|
+
+fired civil servants  = 
+        employed civil servants 
+             * fire rate 
+	~	servant/Month
+	~		|
+
+growth of household per month  = 
+        WITH LOOKUP( year , 
+            ([(0,0)-(10,10)],(0,6083),(1,5333),(2,5583),(3,6083),(4,3750),(5,6500),(6,4667)\
+		,(7,4250),(8,4083),(9,3917),(10,3750),(11,3500),(12,3333),(13,3000),(14,2833),(15,2583)\
+		,(16,2333),(17,2000),(18,1917),(19,1583),(20,1333),(21,1117),(22,1000),(23,833),(24,833)\
+		,(25,667),(26,583),(27,583),(28,583),(29,583),(30,667),(31,667),(32,667),(33,667),(34,667)\
+		 )
+            )
+	~	household/Month
+	~	https://www.cbs.nl/nl-nl/longread/statistische-trends/2021/huishoudensprogn\
+		ose-2021-2070-groei-aantal-huishoudens-houdt-aan?onepage=true#c-5--Verschil\
+		len-met-de-vorige-prognose-en-onzekerheid
+	|
+
+growth of households  = 
+        growth of household per month 
+	~	household/Month
+	~		|
+
+households  = 
+        INTEG( growth of households , 
+             7.7e+06) 
+	~	household
+	~	https://www.cbs.nl/nl-nl/visualisaties/dashboard-bevolking/woonsituatie/hui\
+		shoudens-nu
+	|
+
+houses  = 
+        INTEG( constructed houses 
+                  - demolition of houses , 
+             7.64132e+06) 
+	~	house
+	~	https://www.rijksoverheid.nl/binaries/rijksoverheid/documenten/rapporten/20\
+		21/07/01/rapport-staat-van-de-woningmarkt-2021/Staat+van+de+Woningmarkt+202\
+		1.pdf pagina 28
+	|
+
+houses per household  = 1
+	~	house/household
+	~		|
+
+houses shortage  = 
+        housing demand 
+             - available houses 
+	~	house
+	~		|
+
+houses under construction  = 
+        INTEG( new houses under construction 
+                  - constructed houses , 
+             133876) 
+	~	house
+	~	https://www.cbs.nl/-/media/_excel/2016/19/maatwerktabelnieuwbouwfasen-wonin\
+		gen-en-niet-woningen_2012-2016q1.xls
+	|
+
+housing demand  = 
+        ( households 
+             * percentage housing demand ) 
+             * houses per household 
+	~	house
+	~		|
+
+New civil servant workers  = 
+        ( desired new civil servants 
+             / desired time to solve employment ) 
+	~	servant/Month
+	~		|
+
+new houses under construction  = 
+        total approved permits 
+             / average permits per house 
+	~	house/Month
+	~		|
+
+New servant time  = 6
+	~	Month
+	~		|
+
+objected permits  = 
+        ( permits in objection period 
+             * objection rate ) 
+             / objection processing time 
+	~	permit/Month
+	~		|
+
+objection approval rate  = 0.3
+	~	Dmnl
+	~	nog opzoeken
+	|
+
+objection processing time  = 1.5
+	~	Month
+	~	https://www.stibbe.com/en/news/2019/october/omgevingsvergunning--beslisterm\
+		ijn-inwerkingtreding-en-onherroepelijkheid-faq 6 weken
+	|
+
+objection rate  = 0.3
+	~	Dmnl
+	~	nog opzoeken
+	|
+
+percentage available houses  = 0.0124
+	~	Dmnl
+	~	https://www.rijksoverheid.nl/binaries/rijksoverheid/documenten/rapporten/20\
+		21/07/01/rapport-staat-van-de-woningmarkt-2021/Staat+van+de+Woningmarkt+202\
+		1.pdf
+	|
+
+percentage housing demand  = 0.047
+	~	Dmnl
+	~	https://www.rijksoverheid.nl/binaries/rijksoverheid/documenten/rapporten/20\
+		21/07/01/rapport-staat-van-de-woningmarkt-2021/Staat+van+de+Woningmarkt+202\
+		1.pdf pagina 29
+	|
+
+permit requests  = 
+        average permits per house 
+             * requested construction houses 
+	~	permit/Month
+	~		|
+
+permits in objection period  = 
+        INTEG( processed permits 
+                  - approved permits 
+                  - objected permits , 
+             500) 
+	~	permit
+	~		|
+
+permits in process  = 
+        INTEG( permit requests 
+                  + resubmitted 
+                  + resubmitted after objection 
+                  - denied permits 
+                  - processed permits , 
+             500) 
+	~	permit
+	~		|
+
+processed permits  = 
+        ( permits in process 
+             * ( 1
+                  - average monthly denial rate ) ) 
+             / processing time permits 
+	~	permit/Month
+	~		|
+
+processing time permits  = 
+        average processing time permits 
+             * efficiency 
+	~	Month [?,3.5]
+	~	https://www.stibbe.com/en/news/2019/october/omgevingsvergunning--beslisterm\
+		ijn-inwerkingtreding-en-onherroepelijkheid-faq
+	|
+
+ratio workload to desired workload  = 
+        backlog permits 
+             / desired workload per civil servant 
+	~	1
+	~		|
+
+reprocessed permits  = 
+        INTEG( objected permits 
+                  - approved after objection 
+                  - denied after objection 
+                  - resubmitted after objection 
+                  - resubmitted after objection , 
+             0) 
+	~	permit
+	~		|
+
+reprocessing time  = 2
+	~	Month
+	~		|
+
+requested construction houses  = 
+        ( houses shortage 
+             - houses under construction ) 
+             / desired time to finish construction 
+	~	house/Month
+	~		|
+
+resigned civil servants  = 
+        average resignation level 
+             * employed civil servants 
+	~	servant/Month
+	~		|
+
+resubmitted  = 
+        ( 1
+             - resubmitted denied permit rate ) 
+             * denied total 
+	~	permit/Month
+	~		|
+
+resubmitted after objection  = 
+        ( reprocessed permits 
+             * ( 1
+                  - objection approval rate ) 
+             * resubmitted objected permit rate ) 
+             / reprocessing time 
+	~	permit/Month
+	~		|
+
+resubmitted denied permit rate  = 0.2
+	~	permit/permit/Month
+	~	nog opzoeken of onderbouwen
+	|
+
+resubmitted objected permit rate  = 0.1
+	~	Dmnl
+	~		|
+
+retired civil servants  = 
+        average retire rate 
+             * employed civil servants 
+	~	servant/Month
+	~		|
+
+rolling average demand  = 
+        SMOOTH ( demand civil servants , 
+             evaluation time ) 
+	~	servant
+	~		|
+
+satisfaction civil servants  = 
+        1
+             / ratio workload to desired workload 
+	~	Dmnl
+	~		|
+
+total approved permits  = 
+        approved after objection 
+             + approved permits 
+	~	permit/Month
+	~		|
+
+year  = 
+        INTEGER ( Time 
+                  / 13) 
+             * dummy year 
+	~	1
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 408
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 0.0625
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,76,0
+10,1,houses under construction,738,153,63,20,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,houses,997,151,49,28,3,131,0,0,0,0,0,0,0,0,0,0,0,0
+12,3,48,506,155,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,4,6,1,4,0,0,22,0,0,0,-1--1--1,,1|(645,155)|
+1,5,6,3,100,0,0,22,0,0,0,-1--1--1,,1|(567,155)|
+11,6,0,609,155,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,7,new houses under construction,609,193,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,8,10,2,4,0,0,22,0,0,0,-1--1--1,,1|(909,153)|
+1,9,10,1,100,0,0,22,0,0,0,-1--1--1,,1|(830,153)|
+11,10,0,865,153,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,constructed houses,865,191,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,12,48,1214,155,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,13,15,12,4,0,0,22,0,0,0,-1--1--1,,1|(1159,155)|
+1,14,15,2,100,0,0,22,0,0,0,-1--1--1,,1|(1082,155)|
+11,15,0,1124,155,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,16,demolition of houses,1124,193,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,17,demolition rate,1123,92,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,18,17,15,0,0,0,0,0,128,0,-1--1--1,,1|(0,0)|
+10,19,construction delay time,864,298,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,20,19,11,0,0,0,0,0,128,0,-1--1--1,,1|(0,0)|
+1,21,2,16,1,0,0,0,0,192,0,-1--1--1,,1|(1043,203)|
+10,22,INITIAL TIME,738,793,75,30,8,2,6,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,23,households,756,472,55,13,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,24,48,505,468,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,25,27,24,100,0,0,22,0,192,0,-1--1--1,,1|(566,468)|
+1,26,27,23,4,0,0,22,0,192,0,-1--1--1,,1|(657,468)|
+11,27,0,608,468,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,28,growth of households,608,506,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,29,INITIAL TIME,223,537,75,30,8,2,6,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,30,year,605,669,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,31,Time,657,740,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,32,INITIAL TIME,783,739,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,33,32,31,0,0,0,0,0,0,1,-1--1--1,,1|(0,0)|
+1,34,31,30,1,0,0,0,0,192,0,-1--1--1,,1|(640,719)|
+10,35,growth of household per month,608,587,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,36,30,35,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,37,dummy year,536,741,75,30,8,3,0,16,-1,0,0,0,0-0-0,0-0-0,||U|0-0-0,0,0,0,0,0,0
+1,38,37,30,1,0,0,0,0,192,0,-1--1--1,,1|(560,717)|
+1,39,35,28,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,40,available houses,1165,354,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,41,2,40,1,0,0,0,0,192,0,-1--1--1,,1|(1040,264)|
+10,42,percentage available houses,993,349,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,43,42,40,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,44,percentage housing demand,855,589,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,45,housing demand,936,473,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,46,23,45,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,47,44,45,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,48,houses shortage,1166,474,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,49,40,48,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,50,45,48,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,51,houses per household,1022,592,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,52,51,45,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,53,permits in objection period,2138,489,47,27,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,54,permits in process,1865,490,47,20,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,55,57,54,100,0,0,22,0,192,0,-1--1--1,,1|(1947,487)|
+1,56,57,53,4,0,0,22,0,192,0,-1--1--1,,1|(2042,487)|
+11,57,0,1988,487,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,58,processed permits,1988,525,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,59,48,1544,477,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,60,62,59,100,0,0,22,0,192,0,-1--1--1,,1|(1598,477)|
+1,61,62,54,4,0,0,22,0,192,0,-1--1--1,,1|(1729,477)|
+11,62,0,1634,477,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,63,permit requests,1634,515,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,64,65,54,100,0,0,22,0,192,0,-1--1--1,,1|(1866,564)|
+11,65,0,1866,625,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,66,denied permits,1949,625,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,67,average permits per house,1579,610,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,68,67,63,1,0,0,0,0,192,0,-1--1--1,,1|(1599,535)|
+10,69,average monthly denial rate,2095,624,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,70,69,66,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,71,69,58,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,72,resubmitted denied permit rate,1871,853,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,73,processing time permits,2257,628,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,74,48,2459,487,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,75,77,53,100,0,0,22,0,192,0,-1--1--1,,1|(2251,487)|
+1,76,77,74,4,0,0,22,0,192,0,-1--1--1,,1|(2381,487)|
+11,77,0,2323,487,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,78,approved permits,2323,525,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,79,80,53,100,0,0,22,0,192,0,-1--1--1,,1|(2138,412)|
+11,80,0,2138,357,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,81,objected permits,2221,357,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,82,reprocessed permits,2139,195,60,20,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,83,80,82,4,0,0,22,0,192,0,-1--1--1,,1|(2138,283)|
+12,84,48,2461,196,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,85,87,82,100,0,0,22,0,192,0,-1--1--1,,1|(2259,196)|
+1,86,87,84,4,0,0,22,0,192,0,-1--1--1,,1|(2383,196)|
+11,87,0,2325,196,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,88,approved after objection,2325,234,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,89,48,2138,-7,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,90,92,82,100,0,0,22,0,192,0,-1--1--1,,1|(2138,129)|
+1,91,92,89,4,0,0,22,0,192,0,-1--1--1,,1|(2138,39)|
+11,92,0,2138,77,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,93,denied after objection,2221,77,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,94,objection rate,2367,357,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,95,94,77,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,96,94,81,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,97,objection approval rate,2407,76,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,98,97,87,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,99,97,93,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,100,73,66,1,0,0,0,0,192,0,-1--1--1,,1|(2074,688)|
+10,101,reprocessing time,2603,76,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,102,101,93,1,0,0,0,0,192,0,-1--1--1,,1|(2469,19)|
+10,103,objection processing time,2570,365,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,104,denied total,1872,752,55,20,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,105,65,104,4,0,0,22,0,192,0,-1--1--1,,1|(1866,681)|
+1,106,108,104,100,0,0,22,0,192,0,-1--1--1,,1|(1729,752)|
+1,107,108,54,4,0,0,22,0,192,0,-1--1--1,,1|(1729,490)|
+11,108,0,1729,617,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,109,resubmitted,1812,617,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,110,48,2170,752,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,111,113,104,100,0,0,22,0,192,0,-1--1--1,,1|(1989,752)|
+1,112,113,110,4,0,0,22,0,192,0,-1--1--1,,1|(2104,752)|
+11,113,0,2058,752,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,114,denied forever,2058,790,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,115,72,108,1,0,0,0,0,192,0,-1--1--1,,1|(1689,740)|
+1,116,72,114,1,0,0,0,0,192,0,-1--1--1,,1|(1935,858)|
+1,117,104,114,1,0,0,0,0,192,0,-1--1--1,,1|(1951,794)|
+1,118,104,108,1,0,0,0,0,192,0,-1--1--1,,1|(1806,708)|
+10,119,resubmitted objected permit rate,1970,74,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,120,employed civil servants,2271,1013,66,20,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,121,48,1956,1012,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,122,124,121,100,0,0,22,0,192,0,-1--1--1,,1|(2033,1012)|
+1,123,124,120,4,0,0,22,0,192,0,-1--1--1,,1|(2151,1012)|
+11,124,0,2092,1012,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,125,New civil servant workers,2092,1050,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,126,48,2574,1013,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,127,129,120,100,0,0,22,0,192,0,-1--1--1,,1|(2385,1013)|
+1,128,129,126,4,0,0,22,0,192,0,-1--1--1,,1|(2497,1013)|
+11,129,0,2440,1013,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,130,retired civil servants,2440,1051,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,131,48,2270,1208,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,132,134,120,100,0,0,22,0,192,0,-1--1--1,,1|(2270,1072)|
+1,133,134,131,4,0,0,22,0,192,0,-1--1--1,,1|(2270,1158)|
+11,134,0,2270,1117,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,135,resigned civil servants,2353,1117,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,136,demand civil servants,1877,1298,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,137,backlog permits,1602,1156,75,30,8,3,0,16,0,0,0,0,0-0-0,0-0-0,||U|0-0-0,0,0,0,0,0,0
+1,138,120,137,1,0,0,0,0,128,0,-1--1--1,,1|(1906,973)|
+10,139,desired workload per civil servant,1647,1377,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,140,ratio workload to desired workload,1876,1383,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,141,137,140,1,0,0,0,0,192,0,-1--1--1,,1|(1743,1315)|
+1,142,139,140,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,143,satisfaction civil servants,2126,1384,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,144,140,143,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+12,145,48,2269,815,25,15,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,146,148,120,100,0,0,22,0,192,0,-1--1--1,,1|(2269,951)|
+1,147,148,145,4,0,0,22,0,192,0,-1--1--1,,1|(2269,863)|
+11,148,0,2269,903,8,6,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,149,fired civil servants,2352,903,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,150,average employment level,2127,1298,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,151,143,150,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,152,average resignation level,2424,1219,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,153,152,135,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,154,average retire rate,2544,1124,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,155,154,130,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,156,140,136,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,157,rolling average demand,1880,1151,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,158,136,157,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,159,120,149,1,0,0,0,0,192,0,-1--1--1,,1|(2315,958)|
+10,160,evaluation time,1739,1152,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,161,160,157,1,0,0,0,0,192,0,-1--1--1,,1|(1802,1154)|
+10,162,New servant time,1280,1267,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,163,requested construction houses,1376,474,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,164,163,63,1,0,0,0,0,192,0,-1--1--1,,1|(1505,530)|
+10,165,total approved permits,2727,370,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,166,88,165,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,167,78,165,1,0,0,0,0,192,0,-1--1--1,,1|(2470,587)|
+10,168,total approved permits,528,297,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,169,average permits per house,662,297,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,170,169,7,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,171,54,58,1,0,0,0,0,192,0,-1--1--1,,1|(1939,528)|
+1,172,53,80,1,0,0,0,0,192,0,-1--1--1,,1|(2073,405)|
+1,173,53,78,1,0,0,0,0,192,0,-1--1--1,,1|(2220,543)|
+1,174,82,93,1,0,0,0,0,192,0,-1--1--1,,1|(2192,146)|
+1,175,82,88,1,0,0,0,0,192,0,-1--1--1,,1|(2232,262)|
+1,176,103,78,1,0,0,0,0,192,0,-1--1--1,,1|(2492,519)|
+1,177,54,66,1,0,0,0,0,192,0,-1--1--1,,1|(1900,565)|
+1,178,48,163,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,179,168,7,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,180,1,10,1,0,0,0,0,192,0,-1--1--1,,1|(807,125)|
+1,181,1,163,1,0,0,0,0,192,0,-1--1--1,,1|(1236,115)|
+1,182,120,135,1,0,0,0,0,192,0,-1--1--1,,1|(2315,1082)|
+10,183,fire rate,2468,902,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,184,183,149,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,185,reprocessed permits,3155,446,75,30,8,2,1,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,186,reprocessed permits,1439,1156,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,187,186,137,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+11,188,0,1971,183,6,8,2,3,0,0,1,0,0,0,0,0,0,0,0,0
+11,189,0,1965,313,8,6,1,3,0,0,1,0,0,0,0,0,0,0,0,0
+1,190,192,82,100,0,0,22,0,192,0,-1--1--1,,1|(2029,195)|
+1,191,192,54,4,0,0,22,0,192,0,-1--1--1,,1|(1865,195)|
+11,192,0,1971,195,8,6,33,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,193,resubmitted after objection,1971,233,75,30,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,194,119,92,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,195,82,193,1,0,0,0,0,192,0,-1--1--1,,1|(2066,248)|
+10,196,efficiency,2487,627,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,197,196,73,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,198,140,196,1,0,0,0,0,192,0,-1--1--1,,1|(2625,1186)|
+1,199,143,152,1,0,0,0,0,192,0,-1--1--1,,1|(2362,1320)|
+10,200,desired time to finish construction,1375,585,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,201,200,163,0,0,0,0,0,128,0,-1--1--1,,1|(0,0)|
+10,202,desired new civil servants,2092,1152,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,203,120,202,0,0,0,0,0,128,0,-1--1--1,,1|(0,0)|
+10,204,desired time to solve employment,1885,1062,75,30,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,205,202,125,0,0,0,0,0,128,0,-1--1--1,,1|(0,0)|
+1,206,204,125,1,0,0,0,0,128,0,-1--1--1,,1|(2000,1091)|
+1,207,120,130,1,0,0,0,0,192,0,-1--1--1,,1|(2393,1058)|
+1,208,157,202,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,209,120,136,1,0,0,0,0,192,0,-1--1--1,,1|(2119,1229)|
+1,210,73,58,1,0,0,0,0,192,0,-1--1--1,,1|(2157,566)|
+1,211,103,81,1,0,0,0,0,192,0,-1--1--1,,1|(2435,321)|
+1,212,101,88,1,0,0,0,0,192,0,-1--1--1,,1|(2467,232)|
+1,213,119,193,0,1,0,0,0,64,0,-1--1--1,,1|(0,0)|
+1,214,119,192,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,215,permits in process,1436,1071,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,216,215,137,1,0,0,0,0,192,0,-1--1--1,,1|(1532,1095)|
+10,217,average processing time permits,2497,738,75,30,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,218,217,73,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,219,reprocessing time,1829,75,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,220,219,192,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,221,objection approval rate,1970,335,75,30,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+1,222,221,193,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+///---\\\
+:L<%^E!@
+1:C:\Studie\MSc Construction Management and Engineering\Jaar 1 (2021-2022)\Periode 3 (Q3)\Advanced System Dynamics\Project\test3.vdfx
+1:test3.vdfx
+1:test2.vdfx
+1:test1.vdfx
+4:Time
+5:houses under construction
+9:test3
+19:76,0
+24:0
+25:408
+26:408
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+95:0
+96:0
+97:0
+98:1
+77:0
+78:0
+102:0
+93:1
+94:1
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
