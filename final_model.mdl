@@ -27,7 +27,7 @@ available houses  =
 	~	house
 	~		|
 
-average monthly denial rate  = 0.2
+average monthly denial rate  = 0.3
 	~	Dmnl
 	~	nog opzoeken
 	|
@@ -302,7 +302,7 @@ objected permits  =
 	~	permit/Month
 	~		|
 
-objection approval rate  = 0.3
+objection approval rate  = 0.2
 	~	Dmnl
 	~	nog opzoeken
 	|
@@ -367,7 +367,7 @@ processed permits  =
 processing time permits  = 
         average processing time permits 
              * efficiency 
-	~	Month [?,3.5]
+	~	Month
 	~	https://www.stibbe.com/en/news/2019/october/omgevingsvergunning--beslisterm\
 		ijn-inwerkingtreding-en-onherroepelijkheid-faq
 	|
@@ -750,15 +750,17 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 1,239,238,130,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
 ///---\\\
 :L<%^E!@
-1:Validation1.vdfx
-1:Validation.vdfx
+1:validation.vdfx
 4:Time
-5:processing time permits
-9:Validation1
+5:permits in process
+9:validation
 19:75,0
 24:0
 25:408
 26:408
+23:0
+18:sens.vsc
+20:sens.lst
 15:0,0,0,1,0,0
 27:0,
 34:0,
