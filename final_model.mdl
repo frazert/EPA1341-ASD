@@ -32,7 +32,7 @@ average monthly denial rate  = 0.2
 	~	nog opzoeken
 	|
 
-average permits per house  = 1
+average permits per house  = 2
 	~	permit/house
 	~	alleen omgevingsvergunning?
 	|
@@ -500,7 +500,7 @@ SAVEPER  =
 	~	The frequency with which output is stored.
 	|
 
-TIME STEP  = 0.25
+TIME STEP  = 0.0078125
 	~	Month [0,?]
 	~	The time step for the simulation.
 	|
@@ -750,22 +750,24 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 1,239,238,130,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
 ///---\\\
 :L<%^E!@
+1:Validation1.vdfx
+1:Validation.vdfx
 4:Time
-5:growth of households
-9:time setting2
+5:processing time permits
+9:Validation1
 19:75,0
 24:0
 25:408
 26:408
-15:0,0,0,0,0,0
+15:0,0,0,1,0,0
 27:0,
 34:0,
 42:1
 72:0
 73:0
 35:Date
-36:YYYY-MM-DD
-37:2000
+36:DD-MM-YYYY
+37:2016
 38:1
 39:1
 40:2
