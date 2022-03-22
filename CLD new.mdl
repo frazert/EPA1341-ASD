@@ -1,0 +1,180 @@
+{UTF-8}
+amount of employed civil servants  = A FUNCTION OF( new civil servants)
+	~	
+	~		|
+
+amount of households  = A FUNCTION OF( )
+	~	
+	~		|
+
+approved permits per month  = A FUNCTION OF( processing time permits)
+	~	
+	~		|
+
+available houses  = A FUNCTION OF( houses)
+	~	
+	~		|
+
+backlog permits  = A FUNCTION OF( amount of employed civil servants,permit requests)
+	~	
+	~		|
+
+demand civil servants  = A FUNCTION OF( workload civil servants)
+	~	
+	~		|
+
+houses  = A FUNCTION OF( houses under construction)
+	~	
+	~		|
+
+houses shortage  = A FUNCTION OF( available houses,housing demand)
+	~	
+	~		|
+
+houses under construction  = A FUNCTION OF( new houses under construction)
+	~	
+	~		|
+
+housing demand  = A FUNCTION OF( amount of households)
+	~	
+	~		|
+
+new civil servants  = A FUNCTION OF( demand civil servants,satisfaction civil servants\
+		)
+	~	
+	~		|
+
+new houses under construction  = A FUNCTION OF( approved permits per month)
+	~	
+	~		|
+
+permit requests  = A FUNCTION OF( requested construction houses)
+	~	
+	~		|
+
+processing time permits  = A FUNCTION OF( permit requests,workload civil servants)
+	~	
+	~		|
+
+requested construction houses  = A FUNCTION OF( houses shortage)
+	~	
+	~		|
+
+satisfaction civil servants  = A FUNCTION OF( workload civil servants)
+	~	
+	~		|
+
+workload civil servants  = A FUNCTION OF( backlog permits)
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,80,0
+10,1,new houses under construction,377,275,66,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,houses under construction,542,242,49,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,3,houses,690,276,27,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,4,1,2,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(460,249)|
+1,5,2,3,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(628,252)|
+10,6,available houses,699,335,33,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,7,3,6,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+10,8,houses shortage,700,420,60,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,9,6,8,0,0,45,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+10,10,amount of households,380,393,42,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,11,housing demand,539,447,60,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,12,10,11,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(447,427)|
+1,13,11,8,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(623,442)|
+10,14,requested construction houses,888,385,72,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,15,8,14,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+10,16,permit requests,1008,329,56,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,17,14,16,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(949,364)|
+10,18,processing time permits,1193,333,59,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,19,approved permits per month,1159,228,65,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,20,19,1,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(764,135)|
+1,21,16,18,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+1,22,18,19,0,0,45,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+12,23,0,849,249,20,20,5,7,0,0,-1,0,0,0,0,0,0,0,0,0
+-
+10,24,backlog permits,1063,421,58,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,25,16,24,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+10,26,amount of employed civil servants,853,540,52,27,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,27,26,24,1,0,45,0,2,192,0,-1--1--1,|||-1--1--1,1|(936,453)|
+10,28,workload civil servants,1216,458,49,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,29,satisfaction civil servants,1329,567,58,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,30,demand civil servants,1098,563,46,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,31,24,28,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(1144,427)|
+1,32,28,30,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(1125,505)|
+1,33,28,29,1,0,45,0,2,192,0,-1--1--1,|||-1--1--1,1|(1306,508)|
+10,34,new civil servants,1217,659,31,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,35,30,34,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(1139,625)|
+1,36,29,34,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(1309,618)|
+1,37,34,26,1,0,43,0,2,128,0,-1--1--1,|||-1--1--1,1|(993,667)|
+12,38,0,1006,546,20,20,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
+-
+12,40,0,1217,561,20,20,4,7,0,0,-1,0,0,0,0,0,0,0,0,0
++
+1,44,28,18,1,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(1221,389)|
+///---\\\
+:L<%^E!@
+5:approved permits per month
+9:current
+19:80,0
+24:0
+25:0
+26:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8

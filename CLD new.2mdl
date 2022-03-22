@@ -1,0 +1,109 @@
+{UTF-8}
+amount of households  = A FUNCTION OF( )
+	~	
+	~		|
+
+available houses  = A FUNCTION OF( houses)
+	~	
+	~		|
+
+houses  = A FUNCTION OF( houses under construction)
+	~	
+	~		|
+
+houses shortage  = A FUNCTION OF( available houses,housing demand)
+	~	
+	~		|
+
+houses under construction  = A FUNCTION OF( new houses under construction)
+	~	
+	~		|
+
+housing demand  = A FUNCTION OF( amount of households)
+	~	
+	~		|
+
+new houses under construction  = A FUNCTION OF( )
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP 
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,100,0
+10,1,new houses under construction,310,182,66,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,houses under construction,527,185,49,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,3,houses,697,184,27,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,4,1,2,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+1,5,2,3,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+10,6,available houses,700,316,33,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,7,3,6,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+10,8,houses shortage,700,420,60,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,9,6,8,0,0,45,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+10,10,amount of households,287,421,42,18,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,11,housing demand,487,421,60,10,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,12,10,11,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+1,13,11,8,0,0,43,0,2,192,0,-1--1--1,|||-1--1--1,1|(0,0)|
+///---\\\
+:L<%^E!@
+5:available houses
+9:current
+19:100,0
+24:0
+25:0
+26:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:2
+41:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
