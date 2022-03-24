@@ -132,12 +132,12 @@ desired new civil servants  =
 	~	servant
 	~		|
 
-desired time to finish construction  = 24
+desired time to finish construction  = 36
 	~	Month
 	~	https://www.cbs.nl/nl-nl/nieuws/2021/07/voor-bijna-66-duizend-nieuwbouwwoni\
 		ngen-vergunning-afgegeven-in-2020 '' De gemiddelde doorlooptijd vanaf \
 		vergunningverlening is circa twee jaar'' Dus the desired time to finish \
-		construction is also 24 months
+		construction is iets langer dan dat.
 	|
 
 desired time to solve employment  = 2
@@ -754,7 +754,7 @@ $192-192-192,0,Arial Unicode MS|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,
 ///---\\\
 :L<%^E!@
 4:Time
-5:notice period
+5:percentage available houses
 9:validation
 19:61,0
 24:0
